@@ -25,7 +25,6 @@ $(BIN): $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
 prec.h.gch: prec.h
-	@echo "prec"
 	$(CC) $(CXXFLAGS) $< -o $@
 
 .cpp.o:
