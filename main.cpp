@@ -6,6 +6,8 @@
  */
 
 #include "prec.h"
+#include "Problem.h"
+#include "Answer.h"
 
 std::map<std::string, std::string> parse_options(std::vector<std::string> &args)
 {
