@@ -9,7 +9,7 @@
 #release
 #CFLAGS=-O2 -march=i686 -pipe
 #debug
-CFLAGS=-march=i686 -pipe -Wall -g
+CFLAGS=-march=i686 -pipe -Wall -g -std=gnu++0x
 CXXFLAGS=$(CFLAGS)
 CC=g++
 
