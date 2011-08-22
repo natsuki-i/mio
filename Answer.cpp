@@ -2,7 +2,7 @@
  * Answer.cpp
  *
  *  Created on: 2011/08/20
- *      Author: natsuki
+ *      Author: なつき
  */
 
 #include "prec.h"

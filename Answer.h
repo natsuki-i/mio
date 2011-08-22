@@ -2,7 +2,7 @@
  * Answer.h
  *
  *  Created on: 2011/08/20
- *      Author: natsuki
+ *      Author: なつき
  */
 
 #ifndef ANSWER_H_
