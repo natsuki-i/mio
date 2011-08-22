@@ -13,7 +13,7 @@ CFLAGS=-march=i686 -pipe -Wall -g
 CXXFLAGS=$(CFLAGS)
 CC=g++
 
-SOURCES=main.cpp Problem.cpp Answer.cpp
+SOURCES=main.cpp Problem.cpp Answer.cpp AlgorithmBase.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 DEPENDS=$(SOURCES:.cpp=.d)
 BIN=mio
