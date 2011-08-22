@@ -14,8 +14,12 @@ CXXFLAGS=$(CFLAGS)
 CC=g++
 
 SOURCES=main.cpp
-OBJECTS=${SOURCES:.cpp=.o}
+OBJECTS=$(SOURCES:.cpp=.o)
+DEPENDS=$(SOURCES:.cpp=.d)
 BIN=mio
+
+.PHONY: clean depend
+.SUFFIXES: .o .d
 
 all: $(BIN)
 
@@ -30,5 +34,16 @@ prec.h.gch: prec.h
 .cpp.o:
 	$(CC) $(CXXFLAGS) -c $< -o $@
 
+
+.cpp.d:
+	@set -e; $(CC) -MM $(CXXFLAGS) $< \
+		| sed 's/\($*\)\.o[ :]*/\1.o $@ : /g' > $@; \
+		[ -s $@ ] || rm -f $@
+
+-include $(DEPENDS)
+
 clean:
-	rm -f $(BIN) prec.h.gch $(OBJECTS)
+	rm -f $(BIN) prec.h.gch $(OBJECTS) $(DEPENDS)
+
+depend: $(DEPENDS)
+
