@@ -58,11 +58,11 @@ void Answer::Output(boost::shared_ptr<std::ostream> ofs)
 bool operator<(const Answer::stamp &a, const Answer::stamp &b)
 {
 	if(a.x < b.x) return (true);
-	else return (false);
+	else if(a.x > b.x) return (false);
 	if(a.y < b.y) return (true);
-	else return (false);
+	else if(a.x > b.x) return (false);
 	if(a.n < b.n) return (true);
-	else return (false);
+	else if(a.x > b.x) return (false);
 	return (false);
 }
 
