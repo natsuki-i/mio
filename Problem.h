@@ -26,6 +26,7 @@ public:
 				width(w), height(h), image(h, std::vector<bool>(w, false))
 		{
 		}
+		Image(boost::shared_ptr<std::istream> ifs);
 		~Image()
 		{
 		}
@@ -37,10 +38,12 @@ public:
 		{
 			return (height);
 		}
-		inline bool get(long x, long y){
+		inline bool get(long x, long y)
+		{
 			return (image[y][x]);
 		}
-		inline bool set(long x, long y, bool b){
+		inline bool set(long x, long y, bool b)
+		{
 			return (image[y][x] = b);
 		}
 	private:
