@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 		long min_w = min(128L, w);
 		long min_h = min(128L, h);
 		for(int i = 1;i < n;i++){
-			genImage(ofs, min_w, min_h);
+			genImage(ofs, rand()%min_w+1, rand()%min_h+1);
 		}
 
 
