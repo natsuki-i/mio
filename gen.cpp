@@ -34,6 +34,9 @@ int main(int argc, char *argv[])
 		for(int i = 1; i < argc; i++)
 		{
 			if(argv[i][0] == '-'){
+				if(strlen(argv[i]) < 3){
+					throw string("option");
+				}
 				switch (argv[i][1])
 				{
 				case 'w':
@@ -48,9 +51,6 @@ int main(int argc, char *argv[])
 					n = atoi(&argv[i][2]);
 					break;
 				case 'o':
-					if(strlen(argv[i]) < 3){
-						throw string("option");
-					}
 					filename = string(&argv[i][2]);
 					break;
 				default:
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 		genImage(ofs, w, h);
 		genImage(ofs, w, h);
 		(*ofs) << n << endl;
-		genImage(ofs, 1, 1);
+		(*ofs) << 1 << endl << 1 << endl << 1 << endl;
 		long min_w = min(128L, w);
 		long min_h = min(128L, h);
 		for(int i = 1;i < n;i++){
