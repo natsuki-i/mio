@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 			cin >> n;
 		}
 		if(w < 1 || w > 640 || h < 1 || h > 480 || n < 1 || n > 128){
-			throw "size";
+			throw string("size");
 		}
 		boost::shared_ptr<ostream> ofs;
 		cout << filename << endl;
