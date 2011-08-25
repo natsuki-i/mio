@@ -13,7 +13,8 @@ class Problem
 public:
 	Problem(boost::shared_ptr<std::istream> ifs);
 	~Problem();
-private:
+	void AffixStamp(long x, long y, long n);
+public:
 	class Image
 	{
 	public:
@@ -28,12 +29,27 @@ private:
 		~Image()
 		{
 		}
+		inline long getWidth(void)
+		{
+			return (width);
+		}
+		inline long getHeight(void)
+		{
+			return (height);
+		}
+		inline bool get(long x, long y){
+			return (image[y][x]);
+		}
+		inline bool set(long x, long y, bool b){
+			return (image[y][x] = b);
+		}
 	private:
 		long width;
 		long height;
 		std::vector<std::vector<bool> > image;
 	};
-	Image start, end;
+public:
+	Image image;
 	std::vector<Image> stamps;
 };
 
