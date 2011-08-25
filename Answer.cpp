@@ -36,7 +36,7 @@ void Answer::Output(boost::shared_ptr<std::ostream> ofs)
 		c++;
 		if(pre == stamp){
 		}else{
-			if(pre.n != -1 && c%2 == 1){
+			if(pre.n != -1 && c % 2 == 1){
 				temp.push_back(pre);
 			}
 			c = 0;
@@ -44,14 +44,14 @@ void Answer::Output(boost::shared_ptr<std::ostream> ofs)
 		}
 	}
 	c++;
-	if(pre.n != -1 && c%2 == 1){
+	if(pre.n != -1 && c % 2 == 1){
 		temp.push_back(pre);
 	}
 
 	(*ofs) << temp.size() << std::endl;
 	BOOST_FOREACH(auto &stamp, temp)
 	{
-		(*ofs)<< stamp.n  << stamp.x << " " << stamp.y << " " << std::endl;
+		(*ofs) << stamp.n << stamp.x << " " << stamp.y << " " << std::endl;
 	}
 }
 

@@ -14,23 +14,17 @@ std::map<std::string, std::string> parse_options(std::vector<std::string> &args)
 {
 	using namespace std;
 	map<string, string> ret;
-	try
-	{
-		for (vector<string>::iterator it = args.begin(); it != args.end(); it++)
-		{
-			if ((*it)[0] == '-')
-			{
-				switch ((*it)[1])
-				{
+	try{
+		for(auto it = args.begin();it != args.end();it++){
+			if((*it)[0] == '-'){
+				switch((*it)[1]){
 				// TODO: オプションを追加する場合はここに追記すること
 				case 'i':
-					if (++it == args.end())
-						throw "arg";
+					if(++it == args.end()) throw "arg";
 					ret.insert(make_pair("input", *(it)));
 					break;
 				case 'o':
-					if (++it == args.end())
-						throw "arg";
+					if(++it == args.end()) throw "arg";
 					ret.insert(make_pair("output", *(it)));
 					break;
 				default:
@@ -39,8 +33,7 @@ std::map<std::string, std::string> parse_options(std::vector<std::string> &args)
 				}
 			}
 		}
-	} catch (...)
-	{
+	} catch(...){
 		cout << "Usage: mio -i input -o output" << endl;
 		return (map<string, string>());
 	}
@@ -48,8 +41,11 @@ std::map<std::string, std::string> parse_options(std::vector<std::string> &args)
 }
 
 // 何もしないダミー関数
-struct noop{
-	void operator()(...) const {}
+struct noop
+{
+	void operator()(...) const
+	{
+	}
 };
 
 int main(int argc, const char *argv[])
@@ -57,8 +53,7 @@ int main(int argc, const char *argv[])
 	using namespace std;
 	// オプション解析
 	vector<string> args;
-	for (int i = 1; i < argc; i++)
-	{
+	for(int i = 1;i < argc;i++){
 		args.push_back(argv[i]);
 	}
 	map<string, string> opt = parse_options(args);
@@ -76,5 +71,6 @@ int main(int argc, const char *argv[])
 	}else{
 		ofs.reset(&cout, noop());
 	}
+
 	return (0);
 }

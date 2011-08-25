@@ -7,22 +7,24 @@
 
 #include "prec.h"
 
-
 void genImage(boost::shared_ptr<std::ostream> ofs, long w, long h)
 {
 	using namespace std;
 	(*ofs) << w << endl << h << endl;
 	for(int y = 0;y < h;y++){
 		for(int x = 0;x < w;x++){
-			(*ofs) << rand()%2;
+			(*ofs) << rand() % 2;
 		}
 		(*ofs) << endl;
 	}
 }
 
 // 何もしないダミー関数
-struct noop{
-	void operator()(...) const {}
+struct noop
+{
+	void operator()(...) const
+	{
+	}
 };
 
 int main(int argc, char *argv[])
@@ -31,14 +33,12 @@ int main(int argc, char *argv[])
 	try{
 		string filename;
 		long w = -1, h = -1, n = -1;
-		for(int i = 1; i < argc; i++)
-		{
+		for(int i = 1;i < argc;i++){
 			if(argv[i][0] == '-'){
 				if(strlen(argv[i]) < 3){
 					throw string("option");
 				}
-				switch (argv[i][1])
-				{
+				switch(argv[i][1]){
 				case 'w':
 				case 'x':
 					w = atoi(&argv[i][2]);
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
 			ofs.reset(&cout, noop());
 		}
 
-		srand((unsigned)time(NULL));
+		srand((unsigned) time(NULL));
 
 		genImage(ofs, w, h);
 		genImage(ofs, w, h);
@@ -90,11 +90,10 @@ int main(int argc, char *argv[])
 		long min_w = min(128L, w);
 		long min_h = min(128L, h);
 		for(int i = 1;i < n;i++){
-			genImage(ofs, rand()%min_w+1, rand()%min_h+1);
+			genImage(ofs, rand() % min_w + 1, rand() % min_h + 1);
 		}
 
-
-	}catch(string &e){
+	} catch(string &e){
 		if(e == "option"){
 			cerr << "Usage: gen [options]" << endl;
 		}else if(e == "size"){

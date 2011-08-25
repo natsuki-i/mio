@@ -50,7 +50,7 @@ Problem::Image::Image(boost::shared_ptr<std::istream> ifs)
 		std::string line;
 		(*ifs) >> line;
 		for(int x = 0;x < w;x++){
-			image[y][x] = (line[x] == '1')?true:false;
+			image[y][x] = (line[x] == '1') ? true : false;
 		}
 	}
 }
