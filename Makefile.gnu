@@ -17,11 +17,12 @@ SOURCES=main.cpp Problem.cpp Answer.cpp AlgorithmBase.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 DEPENDS=$(SOURCES:.cpp=.d)
 BIN=mio
+GEN=gen
 
 .PHONY: clean depend
 .SUFFIXES: .o .d
 
-all: $(BIN)
+all: $(BIN) $(GEN)
 
 $(OBJECTS): prec.h.gch
 
@@ -42,8 +43,11 @@ prec.h.gch: prec.h
 
 -include $(DEPENDS)
 
+$(GEN): gen.cpp
+	$(CC) $(CXXFLAGS) $< -o $@
+
 clean:
-	rm -f $(BIN) prec.h.gch $(OBJECTS) $(DEPENDS)
+	rm -f $(BIN) prec.h.gch $(OBJECTS) $(DEPENDS) $(GEN)
 
 depend: $(DEPENDS)
 
