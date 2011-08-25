@@ -54,3 +54,14 @@ Problem::Image::Image(boost::shared_ptr<std::istream> ifs)
 		}
 	}
 }
+
+std::ostream& operator<<(std::ostream& os, const Problem::Image &image)
+{
+	for(int y = 0;y < image.height;y++){
+		for(int x = 0;x < image.width;x++){
+			os << image.image[y][x];
+		}
+		os << std::endl;
+	}
+	return (os);
+}

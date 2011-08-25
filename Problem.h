@@ -46,6 +46,7 @@ public:
 		{
 			return (image[y][x] = b);
 		}
+		friend std::ostream& operator<<(std::ostream &os, const Image &image);
 	private:
 		long width;
 		long height;
