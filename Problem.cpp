@@ -19,6 +19,15 @@ Problem::Problem(boost::shared_ptr<std::istream> ifs)
 		stamps.push_back(Image(ifs));
 	}
 
+	long w, h;
+	w = start.getWidth();
+	h = start.getHeight();
+	image = Image(w, h);
+	for(int y = 0;y < h;y++){
+		for(int x = 0;x < w;x++){
+			image.set(x, y, start.get(x, y) ^ end.get(x, y));
+		}
+	}
 }
 
 Problem::~Problem()
