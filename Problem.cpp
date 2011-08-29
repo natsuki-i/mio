@@ -36,7 +36,45 @@ Problem::~Problem()
 
 void Problem::AffixStamp(long x, long y, long n)
 {
-	// TODO:
+	long sx, sy, ox, oy, sw, sh;
+	if((unsigned long) n >= stamps.size()){
+		std::cerr << "警告: スタンプ番号が範囲外" << std::endl;
+		return;
+	}
+	if(x < 0){
+		sx = 0;
+		ox = x;
+	}else{
+		sx = x;
+		ox = 0;
+	}
+	if(y < 0){
+		sy = 0;
+		oy = y;
+	}else{
+		sy = y;
+		oy = 0;
+	}
+	if(x + stamps[n].getWidth() >= image.getWidth()){
+		sw = image.getWidth() - x;
+	}else{
+		sw = stamps[n].getWidth();
+	}
+	if(y + stamps[n].getHeight() >= image.getHeight()){
+		sh = image.getHeight() - y;
+	}else{
+		sh = stamps[n].getHeight();
+	}
+	for(long cy = 0;cy < sh;cy++){
+		for(long cx = 0;cx < sw;cx++){
+			image.set(
+					sx + cx,
+					sy + cy,
+					image.get(sx + cx, sy + cy)
+							^ stamps[n].get(ox + cx, oy + cy));
+		}
+	}
+
 }
 
 Problem::Image::Image(boost::shared_ptr<std::istream> ifs)
