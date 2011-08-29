@@ -8,6 +8,9 @@
 #ifndef ALGORITHMBASE_H_
 #define ALGORITHMBASE_H_
 
+class Problem;
+class Answer;
+
 class AlgorithmBase
 {
 public:
