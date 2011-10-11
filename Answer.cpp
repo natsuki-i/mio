@@ -59,7 +59,7 @@ void Answer::Output(boost::shared_ptr<std::ostream> ofs)
 	(*ofs) << temp.size() << std::endl;
 	BOOST_FOREACH(auto &stamp, temp)
 	{
-		(*ofs) << stamp.n << stamp.x << " " << stamp.y << " " << std::endl;
+		(*ofs) << stamp.n << " " << stamp.x << " " << stamp.y << std::endl;
 	}
 }
 

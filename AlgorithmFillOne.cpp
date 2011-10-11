@@ -46,6 +46,5 @@ void AlgorithmFillOne::Solve(Problem &problem, Answer &answer)
 			}
 		}
 	}
-	std::cout << problem.image;
 	// Do something.
 }
