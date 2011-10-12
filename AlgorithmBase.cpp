@@ -1,8 +1,7 @@
-/*
- * AlgorithmBase.cpp
- *
- *  Created on: 2011/08/22
- *      Author: なつき
+/*!
+ * \file AlgorithmBase.cpp
+ * \date 2011/08/22
+ * \author なつき
  */
 
 #include "prec.h"
@@ -18,6 +17,10 @@ AlgorithmBase::~AlgorithmBase()
 {
 }
 
+/*!
+ * \param [in, out] problem 問題
+ * \param [out] answer 回答
+ */
 void AlgorithmBase::Solve(Problem &problem, Answer &answer)
 {
 	// Do something.

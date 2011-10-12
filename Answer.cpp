@@ -1,8 +1,7 @@
-/*
- * Answer.cpp
- *
- *  Created on: 2011/08/20
- *      Author: なつき
+/*!
+ * \file Answer.cpp
+ * \date 2011/08/20
+ * \author なつき
  */
 
 #include "prec.h"
@@ -16,12 +15,21 @@ Answer::~Answer()
 {
 }
 
+/*! 回答を追加する
+ *  \param [in] x X座標
+ *  \param [in] y Y座標
+ *  \param [in] n スタンプ番号
+ */
 void Answer::Add(long x, long y, long n)
 {
 	struct stamp temp = { x, y, n };
 	stamps.push_back(temp);
 }
 
+/*! 回答を出力する
+ *  \param [out] ofs 出力ストリーム
+ *  回答をソートし、重複を削除して出力ストリームに出力する
+ */
 void Answer::Output(boost::shared_ptr<std::ostream> ofs)
 {
 	std::sort(stamps.begin(), stamps.end());
@@ -55,6 +63,8 @@ void Answer::Output(boost::shared_ptr<std::ostream> ofs)
 	}
 }
 
+/*! スタンプの位置、番号から大小を比較する
+ */
 bool operator<(const Answer::stamp &a, const Answer::stamp &b)
 {
 	if(a.x < b.x) return (true);
@@ -66,6 +76,8 @@ bool operator<(const Answer::stamp &a, const Answer::stamp &b)
 	return (false);
 }
 
+/*! スタンプの位置、番号が一致しているか調べる
+ */
 bool operator==(const Answer::stamp &a, const Answer::stamp &b)
 {
 	if(a.x != b.x) return (false);

@@ -1,8 +1,8 @@
-/*
- * prec.h
- *
- *  Created on: 2011/8/19
- *      Author: なつき
+/*!
+ * \file prec.h
+ * \date 2011/8/19
+ * \author なつき
+ * \brief プリコンパイルヘッダ
  */
 
 #ifndef PREC_H_

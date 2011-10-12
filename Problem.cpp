@@ -1,13 +1,15 @@
-/*
- * Problem.cpp
- *
- *  Created on: 2011/08/20
- *      Author: なつき
+/*!
+ * \file Problem.cpp
+ * \date 2011/08/20
+ * \author なつき
  */
 
 #include "prec.h"
 #include "Problem.h"
 
+/*! 文字列から問題を入力する
+ *  \param [in] ifs 入力ストリーム
+ */
 Problem::Problem(boost::shared_ptr<std::istream> ifs)
 {
 	Image start(ifs);
@@ -34,6 +36,11 @@ Problem::~Problem()
 {
 }
 
+/*!
+ *  \param [in] x X座標
+ *  \param [in] y Y座標
+ *  \param [in] n スタンプ番号
+ */
 void Problem::AffixStamp(long x, long y, long n)
 {
 	long sx, sy, ox, oy, sw, sh;

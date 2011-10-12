@@ -48,10 +48,10 @@ $(GEN): gen.cpp
 
 clean:
 	rm -f $(BIN) prec.h.gch $(OBJECTS) $(DEPENDS) $(GEN)
-	rm -rf html
-
-depend: $(DEPENDS)
+	rm -rf html latex
 
 doc:
 	doxygen Doxyfile
+
+depend: $(DEPENDS)
 

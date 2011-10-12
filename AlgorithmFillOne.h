@@ -1,8 +1,7 @@
-/*
- * AlgorithmFillOne.h
- *
- *  Created on: 2011/08/25
- *      Author: らきせぶん
+/*!
+ * \file AlgorithmFillOne.h
+ * \date 2011/08/25
+ * \author らきせぶん
  */
 
 #ifndef ALGORITHMFILLONE_H_

@@ -1,8 +1,7 @@
-/*
- * main.cpp
- *
- *  Created on: 2011/8/19
- *      Author: なつき
+/*!
+ * \file main.cpp
+ * \date 2011/8/19
+ * \author なつき
  */
 
 #include "prec.h"
@@ -10,6 +9,10 @@
 #include "Answer.h"
 #include "AlgorithmBase.h"
 
+/*! オプションの解析
+ *  \param [in] args 引数の配列
+ *  \return オプションの連想配列
+ */
 std::map<std::string, std::string> parse_options(std::vector<std::string> &args)
 {
 	using namespace std;
@@ -18,7 +21,7 @@ std::map<std::string, std::string> parse_options(std::vector<std::string> &args)
 		for(auto it = args.begin();it != args.end();it++){
 			if((*it)[0] == '-'){
 				switch((*it)[1]){
-				// TODO: オプションを追加する場合はここに追記すること
+				// \TODO: オプションを追加する場合はここに追記すること
 				case 'i':
 					if(++it == args.end()) throw "arg";
 					ret.insert(make_pair("input", *(it)));
@@ -40,14 +43,18 @@ std::map<std::string, std::string> parse_options(std::vector<std::string> &args)
 	return (ret);
 }
 
-// 何もしないダミー関数
 struct noop
 {
+	/*! 何もしない関数 */
 	void operator()(...) const
 	{
 	}
 };
 
+/*! エントリポイント
+ * \param [in] argc 引数の数
+ * \param [in] argv コマンド文字列の配列
+ */
 int main(int argc, const char *argv[])
 {
 	using namespace std;

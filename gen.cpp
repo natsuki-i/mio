@@ -1,12 +1,16 @@
-/*
- * gen.cpp
- *
- *  Created on: 2011/08/25
- *      Author: なつき
+/*!
+ * \file gen.cpp
+ * \date 2011/08/25
+ * \author なつき
  */
 
 #include "prec.h"
 
+/*! 指定されたサイズで画像を生成する
+ *  \param [out] ofs 出力ストリーム
+ *  \param [in] w 幅
+ *  \param [in] h 高さ
+ */
 void genImage(boost::shared_ptr<std::ostream> ofs, long w, long h)
 {
 	using namespace std;
@@ -19,14 +23,19 @@ void genImage(boost::shared_ptr<std::ostream> ofs, long w, long h)
 	}
 }
 
-// 何もしないダミー関数
+//! 何もしないダミー関数
 struct noop
 {
+	/*! 何もしない関数 */
 	void operator()(...) const
 	{
 	}
 };
 
+/*! エントリポイント
+ * \param [in] argc 引数の数
+ * \param [in] argv コマンド文字列の配列
+ */
 int main(int argc, char *argv[])
 {
 	using namespace std;

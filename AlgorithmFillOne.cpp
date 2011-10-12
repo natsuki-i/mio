@@ -1,8 +1,7 @@
-/*
- * AlgorithmFillOne.cpp
- *
- *  Created on: 2011/08/25
- *      Author: らきせぶん
+/*!
+ * \file AlgorithmFillOne.cpp
+ * \date 2011/08/25
+ * \author らきせぶん
  */
 
 #include "prec.h"
