@@ -8,6 +8,7 @@
 #include "Problem.h"
 #include "Answer.h"
 #include "AlgorithmBase.h"
+#include "AlgorithmFillOne.h"
 
 /*! オプションの解析
  *  \param [in] args 引数の配列
@@ -78,6 +79,18 @@ int main(int argc, const char *argv[])
 	}else{
 		ofs.reset(&cout, noop());
 	}
+
+	Problem problem(ifs);
+	Answer answer;
+
+	vector<AlgorithmBase*> al;
+	al.push_back(new AlgorithmFillOne);
+
+	BOOST_FOREACH(auto a, al){
+		a->Solve(problem, answer);
+	}
+
+	answer.Output(ofs);
 
 	return (0);
 }
