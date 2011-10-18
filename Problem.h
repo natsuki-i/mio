@@ -97,6 +97,7 @@ public:
 	};
 public:
 	Image image; /*!< 回答中の画像 */
+	std::mutex image_m; /*< 画像を操作する際のミューテックス */
 	std::vector<Image> stamps; /*!< スタンプ */
 };
 

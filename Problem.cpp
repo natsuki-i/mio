@@ -12,6 +12,7 @@
  */
 Problem::Problem(boost::shared_ptr<std::istream> ifs)
 {
+	std::lock_guard<std::mutex> lk(image_m);
 	Image start(ifs);
 	Image end(ifs);
 	long n;
@@ -44,6 +45,7 @@ Problem::~Problem()
 void Problem::AffixStamp(long x, long y, long n)
 {
 	long sx, sy, ox, oy, sw, sh;
+	std::lock_guard<std::mutex> lk(image_m);
 	if((unsigned long) n >= stamps.size()){
 		std::cerr << "警告: スタンプ番号が範囲外" << std::endl;
 		return;

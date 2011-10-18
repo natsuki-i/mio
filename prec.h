@@ -18,6 +18,7 @@
 #include <list>
 #include <utility>
 #include <ctime>
+#include <thread>
 #include <boost/foreach.hpp>
 #include <boost/shared_ptr.hpp>
 

@@ -27,6 +27,7 @@ public:
 	};
 private:
 	std::vector<struct stamp> stamps; /*!< スタンプ情報の配列 */
+	std::mutex stamps_m; /*!< スタンプ情報を操作する際のミューテックス */
 };
 
 bool operator<(const Answer::stamp &a, const Answer::stamp &b);

@@ -23,6 +23,7 @@ Answer::~Answer()
 void Answer::Add(long x, long y, long n)
 {
 	struct stamp temp = { x, y, n };
+	std::lock_guard<std::mutex> lk(stamps_m);
 	stamps.push_back(temp);
 }
 
@@ -32,6 +33,7 @@ void Answer::Add(long x, long y, long n)
  */
 void Answer::Output(boost::shared_ptr<std::ostream> ofs)
 {
+	std::lock_guard<std::mutex> lk(stamps_m);
 	std::sort(stamps.begin(), stamps.end());
 	std::vector<stamp> temp;
 	temp.reserve(stamps.size());
