@@ -24,7 +24,7 @@ void AlgorithmFillOne::Solve(Problem &problem, Answer &answer)
 {
 	bool f=false;
 	long int h = problem.image.getHeight();
-	long int w = problem.image.getHeight();
+	long int w = problem.image.getWidth();
 	long sc = problem.stamps.size();
 	long n=0;
 	while(n < sc){
