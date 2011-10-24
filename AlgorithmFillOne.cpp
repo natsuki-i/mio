@@ -12,39 +12,26 @@
 
 AlgorithmFillOne::AlgorithmFillOne()
 {
-
 }
 
 AlgorithmFillOne::~AlgorithmFillOne()
 {
-
 }
 
+/*!
+ * \param [in, out] problem 問題
+ * \param [out] answer 回答
+ */
 void AlgorithmFillOne::Solve(Problem &problem, Answer &answer)
 {
-	bool f=false;
 	long int h = problem.image.getHeight();
-	long int w = problem.image.getHeight();
-	long sc = problem.stamps.size();
-	long n=0;
-	while(n < sc){
-		long h = problem.stamps[n].getHeight();
-		long w = problem.stamps[n].getWidth();
-		if((h == 1) && (w == 1) && (problem.stamps[n].get(0, 0))){
-			break;
-		}
-		n++;
-	}
-	if(n != sc){
-		for(int y = 0;y < h;y++){
-			for(int x = 0;x < w;x++){
-				f = problem.image.get(x, y);
-				if(f){
-					problem.AffixStamp(x, y, n);
-					answer.Add(x, y, n);
-				}
+	long int w = problem.image.getWidth();
+	for(int y = 0;y < h;y++){
+		for(int x = 0;x < w;x++){
+			if(problem.image.get(x, y)){
+				problem.AffixStamp(x, y, 0);
+				answer.Add(x, y, 0);
 			}
 		}
 	}
-	// Do something.
 }

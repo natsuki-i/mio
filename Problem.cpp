@@ -21,6 +21,7 @@ Problem::Problem(boost::shared_ptr<std::istream> ifs)
 	for(int i = 0;i < n;i++){
 		stamps.push_back(Image(ifs));
 	}
+	std::sort(stamps.begin(), stamps.end());
 
 	long w, h;
 	w = start.getWidth();
@@ -29,6 +30,7 @@ Problem::Problem(boost::shared_ptr<std::istream> ifs)
 	for(int y = 0;y < h;y++){
 		for(int x = 0;x < w;x++){
 			image.set(x, y, start.get(x, y) ^ end.get(x, y));
+//			image.image[y][x] = start.image[y][x]^end.image[y][x];
 		}
 	}
 }
@@ -50,6 +52,7 @@ void Problem::AffixStamp(long x, long y, long n)
 		std::cerr << "警告: スタンプ番号が範囲外" << std::endl;
 		return;
 	}
+	/* 左,上はみ出しチェック */
 	if(x < 0){
 		sx = 0;
 		ox = x;
@@ -64,6 +67,8 @@ void Problem::AffixStamp(long x, long y, long n)
 		sy = y;
 		oy = 0;
 	}
+
+	/* 右,下はみ出しチェック*/
 	if(x + stamps[n].getWidth() >= image.getWidth()){
 		sw = image.getWidth() - x;
 	}else{
@@ -74,6 +79,7 @@ void Problem::AffixStamp(long x, long y, long n)
 	}else{
 		sh = stamps[n].getHeight();
 	}
+
 	for(long cy = 0;cy < sh;cy++){
 		for(long cx = 0;cx < sw;cx++){
 			image.set(
@@ -111,4 +117,9 @@ std::ostream& operator<<(std::ostream& os, const Problem::Image &image)
 		os << std::endl;
 	}
 	return (os);
+}
+
+bool operator<(const Problem::Image &a, const Problem::Image &b)
+{
+	return (a.getWidth()*a.getHeight() < b.getWidth()*b.getHeight());
 }

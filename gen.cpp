@@ -95,11 +95,15 @@ int main(int argc, char *argv[])
 		genImage(ofs, w, h);
 		genImage(ofs, w, h);
 		(*ofs) << n << endl;
-		(*ofs) << 1 << endl << 1 << endl << 1 << endl;
 		long min_w = min(128L, w);
 		long min_h = min(128L, h);
-		for(int i = 1;i < n;i++){
-			genImage(ofs, rand() % min_w + 1, rand() % min_h + 1);
+		int s = rand()%n;
+		for(int i = 0;i < n;i++){
+			if(i==s){
+				(*ofs) << 1 << endl << 1 << endl << 1 << endl;
+			}else{
+				genImage(ofs, rand() % min_w + 1, rand() % min_h + 1);
+			}
 		}
 
 	} catch(string &e){

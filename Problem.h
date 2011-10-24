@@ -52,7 +52,7 @@ public:
 		/*! 幅を取得する
 		 *  \return 幅
 		 */
-		inline long getWidth(void)
+		inline long getWidth(void) const
 		{
 			return (width);
 		}
@@ -60,7 +60,7 @@ public:
 		/*! 高さを取得する
 		 *  \return 高さ
 		 */
-		inline long getHeight(void)
+		inline long getHeight(void) const
 		{
 			return (height);
 		}
@@ -70,7 +70,7 @@ public:
 		 *  \param [in] y Y座標
 		 *  \return 色(true:黒/false:白)
 		 */
-		inline bool get(long x, long y)
+		inline bool get(long x, long y) const
 		{
 			return (image[y][x]);
 		}
@@ -94,11 +94,21 @@ public:
 		long width;
 		long height;
 		std::vector<std::vector<bool> > image;
+		friend class Problem;
 	};
 public:
 	Image image; /*!< 回答中の画像 */
-	std::mutex image_m; /*< 画像を操作する際のミューテックス */
+	std::mutex image_m; /*!< 画像を操作する際のミューテックス */
 	std::vector<Image> stamps; /*!< スタンプ */
 };
+
+/*!
+ * 画像の比較
+ * \param [in] a 左辺
+ * \param [in] b 右辺
+ * \return 左辺の方が小さい場合trueを返す
+ * 面積を比較する。内容には一切関知しない
+ */
+bool operator<(const Problem::Image &a, const Problem::Image &b);
 
 #endif /* PROBLEM_H_ */

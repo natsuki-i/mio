@@ -16,9 +16,9 @@ class Answer;
 class AlgorithmBase
 {
 public:
-	AlgorithmBase(); //!< コンストラクタ
-	virtual ~AlgorithmBase(); //!< デストラクタ
-	virtual void Solve(Problem &problem, Answer &answer); //!< アルゴリズム本体
+	AlgorithmBase(); /*!< コンストラクタ */
+	virtual ~AlgorithmBase(); /*!< デストラクタ */
+	virtual void Solve(Problem &problem, Answer &answer); /*!< アルゴリズム本体 */
 };
 
 #endif /* ALGORITHMBASE_H_ */

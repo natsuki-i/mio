@@ -30,7 +30,20 @@ private:
 	std::mutex stamps_m; /*!< スタンプ情報を操作する際のミューテックス */
 };
 
+/*!
+ * スタンプの比較
+ * \param [in] a 左辺
+ * \param [in] b 右辺
+ * \return 左辺のほうが小さい場合trueを返す
+ * x,y,nの順に比較する
+ */
 bool operator<(const Answer::stamp &a, const Answer::stamp &b);
+/*!
+ * スタンプの比較
+ * \param [in] a 左辺
+ * \param [in] b 右辺
+ * \return 完全に一致する場合trueを返す
+ */
 bool operator==(const Answer::stamp &a, const Answer::stamp &b);
 
 #endif /* ANSWER_H_ */
