@@ -20,6 +20,7 @@ Problem::Problem(boost::shared_ptr<std::istream> ifs)
 	stamps.reserve(n);
 	for(int i = 0;i < n;i++){
 		stamps.push_back(Image(ifs));
+		stamps[i].setNumber(i);
 	}
 	std::sort(stamps.begin(), stamps.end());
 
@@ -106,6 +107,7 @@ Problem::Image::Image(boost::shared_ptr<std::istream> ifs)
 			image[y][x] = (line[x] == '1') ? true : false;
 		}
 	}
+	number = 0;
 }
 
 std::ostream& operator<<(std::ostream& os, const Problem::Image &image)

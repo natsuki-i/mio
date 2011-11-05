@@ -28,7 +28,7 @@ public:
 		 *  サイズ0の画像を生成する
 		 */
 		Image() :
-				width(0), height(0), image()
+				width(0), height(0), number(0), image()
 		{
 		}
 
@@ -38,7 +38,7 @@ public:
 		 *  \param [in] h 高さ
 		 */
 		Image(long w, long h) :
-				width(w), height(h), image(h, std::vector<bool>(w, false))
+				width(w), height(h), number(0), image(h, std::vector<bool>(w, false))
 		{
 		}
 		/*! コンストラクタ
@@ -75,6 +75,22 @@ public:
 			return (image[y][x]);
 		}
 
+		/*! 番号を設定する
+		 *  \param [in] n 番号
+		 */
+		inline void setNumber(int n)
+		{
+			number = n;
+		}
+
+		/*! 番号を取得する
+		 *  \return 番号
+		 */
+		inline int getNumber() const
+		{
+			return (number);
+		}
+
 		/*! 指定座標の色を設定する
 		 *  \param [in] x X座標
 		 *  \param [in] y Y座標
@@ -93,6 +109,7 @@ public:
 	private:
 		long width;
 		long height;
+		long number;
 		std::vector<std::vector<bool> > image;
 		friend class Problem;
 	};
