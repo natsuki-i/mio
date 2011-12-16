@@ -76,7 +76,7 @@ void Problem::AffixStamp(long x, long y, long n)
  *  \param [in] y Y座標
  *  \param [in] n スタンプ番号
  */
-int Problem::CalcMatch(long x, long y, long n)
+int Problem::CalcMatch(long x, long y, long n) const
 {
 	if((unsigned long) n >= stamps.size()){
 		std::cerr << "警告: スタンプ番号が範囲外" << std::endl;
@@ -115,7 +115,7 @@ int Problem::CalcMatch(long x, long y, long n)
  *  \param [in,out] stampw スタンプの幅
  *  \param [in,out] stamph スタンプの高さ
  */
-void Problem::CalcPosition(long &startx, long &starty, long &offsetx, long &offsety, long &stampw, long &stamph)
+void Problem::CalcPosition(long &startx, long &starty, long &offsetx, long &offsety, long &stampw, long &stamph) const
 {
 	if(startx >= image.getWidth() || starty >= image.getHeight() || startx+stampw <= 0 || starty+stamph <= 0){
 		std::cerr << "警告: スタンプ位置が範囲外" << std::endl;

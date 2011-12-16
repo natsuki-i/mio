@@ -17,9 +17,9 @@ public:
 	Problem(boost::shared_ptr<std::istream> ifs); /*!< コンストラクタ */
 	~Problem(); /*!< デストラクタ */
 	void AffixStamp(long x, long y, long n); /*!< 指定した座標にスタンプを適用する */
-	int CalcMatch(long x, long y, long n); /*!< スタンプを押した場合の一致度を求める */
+	int CalcMatch(long x, long y, long n) const; /*!< スタンプを押した場合の一致度を求める */
 private:
-	void CalcPosition(long &startx, long &starty, long &offsetx, long &offsety, long &stampw, long &stamph); /*!< スタンプを押す範囲を計算する */
+	void CalcPosition(long &startx, long &starty, long &offsetx, long &offsety, long &stampw, long &stamph) const; /*!< スタンプを押す範囲を計算する */
 public:
 	/*! 画像を保持するクラス
 	 *  問題画像、スタンプの両方に使用する
