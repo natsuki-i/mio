@@ -8,6 +8,7 @@
 #include "Problem.h"
 #include "Answer.h"
 #include "AlgorithmBase.h"
+#include "AlgorithmBruteForce.h"
 #include "AlgorithmFillOne.h"
 
 /*! オプションの解析
@@ -84,6 +85,7 @@ int main(int argc, const char *argv[])
 	Answer answer;
 
 	vector<AlgorithmBase*> al;
+	al.push_back(new AlgorithmBruteForce);
 	al.push_back(new AlgorithmFillOne);
 
 	BOOST_FOREACH(auto a, al){

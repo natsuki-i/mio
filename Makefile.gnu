@@ -13,7 +13,7 @@ CFLAGS=-march=native -pipe -Wall -g -std=gnu++0x -pthread
 CXXFLAGS=$(CFLAGS)
 CC=g++
 
-SOURCES=main.cpp Problem.cpp Answer.cpp AlgorithmBase.cpp AlgorithmFillOne.cpp
+SOURCES=main.cpp Problem.cpp Answer.cpp AlgorithmBase.cpp AlgorithmBruteForce.cpp AlgorithmFillOne.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 DEPENDS=$(SOURCES:.cpp=.d)
 BIN=mio
