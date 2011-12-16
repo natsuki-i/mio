@@ -27,7 +27,7 @@ all: $(BIN) $(GEN)
 $(OBJECTS): prec.h.gch
 
 $(BIN): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+	$(CC) $(LDFLAGS) $(CXXFLAGS) $(OBJECTS) -o $@
 
 prec.h.gch: prec.h
 	$(CC) $(CXXFLAGS) $< -o $@

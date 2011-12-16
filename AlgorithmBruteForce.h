@@ -14,6 +14,26 @@
  */
 class AlgorithmBruteForce: public AlgorithmBase
 {
+private:
+	/*! ワーカースレッド
+	 * 
+	 */
+	struct worker{
+		/*! コンストラクタ
+		 * \param [in,out] problem
+		 * \param [in,out] answer
+		 * \param [in] sy 上端
+		 * \param [in] ey 下端
+		 */
+		worker(Problem &problem, Answer &answer, int sy, int ey):
+			problem(problem), answer(answer), sy(sy), ey(ey)
+		{
+		}
+		Problem &problem;
+		Answer &answer;
+		int sy, ey;
+		void operator()();
+	};
 public:
 	AlgorithmBruteForce(); /*!< コンストラクタ */
 	virtual ~AlgorithmBruteForce(); /*!< デストラクタ */
