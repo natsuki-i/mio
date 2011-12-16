@@ -11,6 +11,8 @@
 #include "AlgorithmBruteForce.h"
 #include "AlgorithmFillOne.h"
 
+std::map<std::string, std::string> options; /*!< コマンドラインオプション */
+
 /*! オプションの解析
  *  \param [in] args 引数の配列
  *  \return オプションの連想配列
@@ -32,6 +34,15 @@ std::map<std::string, std::string> parse_options(std::vector<std::string> &args)
 					if(++it == args.end()) throw "arg";
 					ret.insert(make_pair("output", *(it)));
 					break;
+				case 'b':
+					if(*it == "-bf"){
+						if(++it == args.end()) throw "arg";
+						if(!boost::regex_match(*it, boost::regex("[0-9]+"))){
+							throw "arg";
+						}
+						ret.insert(make_pair("bruteforce", *it));
+					}
+					break;
 				default:
 					ret.insert(make_pair(*it, ""));
 					break;
@@ -42,6 +53,7 @@ std::map<std::string, std::string> parse_options(std::vector<std::string> &args)
 		cout << "Usage: mio -i input -o output" << endl;
 		return (map<string, string>());
 	}
+	ret.insert(make_pair("stat", "ok"));
 	return (ret);
 }
 
@@ -65,18 +77,21 @@ int main(int argc, const char *argv[])
 	for(int i = 1;i < argc;i++){
 		args.push_back(argv[i]);
 	}
-	map<string, string> opt = parse_options(args);
+	options = parse_options(args);
+	if(options["stat"] != "ok"){
+		return -1;
+	}
 
 	// IOストリーム用意
 	boost::shared_ptr<istream> ifs;
 	boost::shared_ptr<ostream> ofs;
-	if(opt["input"] != ""){
-		ifs.reset(new ifstream(opt["input"].c_str(), ios::in));
+	if(options["input"] != ""){
+		ifs.reset(new ifstream(options["input"].c_str(), ios::in));
 	}else{
 		ifs.reset(&cin, noop());
 	}
-	if(opt["output"] != ""){
-		ofs.reset(new ofstream(opt["output"].c_str(), ios::out));
+	if(options["output"] != ""){
+		ofs.reset(new ofstream(options["output"].c_str(), ios::out));
 	}else{
 		ofs.reset(&cout, noop());
 	}
@@ -85,7 +100,9 @@ int main(int argc, const char *argv[])
 	Answer answer;
 
 	vector<AlgorithmBase*> al;
-	al.push_back(new AlgorithmBruteForce);
+	if(options["bruteforce"] != ""){
+		al.push_back(new AlgorithmBruteForce);
+	}
 	al.push_back(new AlgorithmFillOne);
 
 	BOOST_FOREACH(auto a, al){

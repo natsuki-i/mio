@@ -63,6 +63,7 @@ void Answer::Output(boost::shared_ptr<std::ostream> ofs)
 	{
 		(*ofs) << stamp.n << " " << stamp.x << " " << stamp.y << "\r\n";
 	}
+	std::cerr << "手数:" << temp.size() << std::endl;
 }
 
 /*! スタンプの位置、番号から大小を比較する

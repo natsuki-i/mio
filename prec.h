@@ -21,5 +21,8 @@
 #include <thread>
 #include <boost/foreach.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/regex.hpp>
+
+extern std::map<std::string, std::string> options;
 
 #endif /* PREC_H_ */

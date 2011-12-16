@@ -43,6 +43,7 @@ void AlgorithmBruteForce::worker::operator()()
 	long pw = problem.image.getWidth();
 	long num = problem.stamps.size();
 	long cnt = 0;
+	int threshold = atoi(options["bruteforce"].c_str());
 	BOOST_REVERSE_FOREACH(auto stamp, problem.stamps_size)
 	{
 		cnt++;
@@ -53,7 +54,7 @@ void AlgorithmBruteForce::worker::operator()()
 		if(w*h == 1)continue;
 		for(int  y = sy -h/2+1;y < ey - h/2;y++){
 			for(int x = -w/2+1;x < pw - w/2;x++){
-				if(problem.CalcMatch(x, y, n) >= 800){
+				if(problem.CalcMatch(x, y, n) >= threshold){
 					problem.AffixStamp(x, y, n);
 					answer.Add(x, y, n);
 				}

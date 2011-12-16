@@ -16,6 +16,7 @@ CC=g++
 SOURCES=main.cpp Problem.cpp Answer.cpp AlgorithmBase.cpp AlgorithmBruteForce.cpp AlgorithmFillOne.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 DEPENDS=$(SOURCES:.cpp=.d)
+LIBS= -lboost_regex
 BIN=mio
 GEN=gen
 
@@ -27,7 +28,7 @@ all: $(BIN) $(GEN)
 $(OBJECTS): prec.h.gch
 
 $(BIN): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(CXXFLAGS) $(OBJECTS) -o $@
+	$(CC) $(LDFLAGS) $(LIBS) $(CXXFLAGS) $(OBJECTS) -o $@
 
 prec.h.gch: prec.h
 	$(CC) $(CXXFLAGS) $< -o $@
