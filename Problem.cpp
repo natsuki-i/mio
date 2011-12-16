@@ -92,6 +92,10 @@ int Problem::CalcMatch(long x, long y, long n)
 	CalcPosition(sx, sy, ox, oy, sw, sh);
 
 	long count = 0;
+	if(sw*sh == 0){
+		std::cerr << "警告: スタンプ位置が範囲外" << std::endl;
+		return 0;
+	}
 
 	for(long cy = 0;cy < sh;cy++){
 		for(long cx = 0;cx < sw;cx++){
@@ -113,7 +117,7 @@ int Problem::CalcMatch(long x, long y, long n)
  */
 void Problem::CalcPosition(long &startx, long &starty, long &offsetx, long &offsety, long &stampw, long &stamph)
 {
-	if(startx >= image.getWidth() || starty >= image.getHeight() || startx+stampw < 0 || starty+stamph < 0){
+	if(startx >= image.getWidth() || starty >= image.getHeight() || startx+stampw <= 0 || starty+stamph <= 0){
 		std::cerr << "警告: スタンプ位置が範囲外" << std::endl;
 		startx = 0;
 		starty = 0;
@@ -140,10 +144,10 @@ void Problem::CalcPosition(long &startx, long &starty, long &offsetx, long &offs
 	}
 	/* 右,下はみ出しチェック*/
 	if(startx + offsetx + stampw >= image.getWidth()){
-		stampw = image.getWidth() - startx;
+		stampw = image.getWidth() -  offsetx - startx;
 	}
 	if(starty + offsety + stamph >= image.getHeight()){
-		stamph = image.getHeight() - starty;
+		stamph = image.getHeight() - offsety - starty;
 	}
 }
 
