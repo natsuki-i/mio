@@ -17,6 +17,9 @@ public:
 	Problem(boost::shared_ptr<std::istream> ifs); /*!< コンストラクタ */
 	~Problem(); /*!< デストラクタ */
 	void AffixStamp(long x, long y, long n); /*!< 指定した座標にスタンプを適用する */
+	int CalcMatch(long x, long y, long n); /*!< スタンプを押した場合の一致度を求める */
+private:
+	void CalcPosition(long &startx, long &starty, long &offsetx, long &offsety, long &stampw, long &stamph); /*!< スタンプを押す範囲を計算する */
 public:
 	/*! 画像を保持するクラス
 	 *  問題画像、スタンプの両方に使用する
@@ -75,22 +78,6 @@ public:
 			return (image[y][x]);
 		}
 
-		/*! 番号を設定する
-		 *  \param [in] n 番号
-		 */
-		inline void setNumber(int n)
-		{
-			number = n;
-		}
-
-		/*! 番号を取得する
-		 *  \return 番号
-		 */
-		inline int getNumber() const
-		{
-			return (number);
-		}
-
 		/*! 指定座標の色を設定する
 		 *  \param [in] x X座標
 		 *  \param [in] y Y座標
@@ -113,10 +100,61 @@ public:
 		std::vector<std::vector<bool> > image;
 		friend class Problem;
 	};
+	class Stamp : public Image
+	{
+	public:
+		/*! コンストラクタ
+		 *  サイズ0のスタンプを生成する
+		 */
+		Stamp() :
+			Image()
+		{
+		}
+
+		/*! コンストラクタ
+		 *  指定したサイズでスタンプを生成する
+		 *  \param [in] w 幅
+		 *  \param [in] h 高さ
+		 */
+		Stamp(long w, long h) :
+				Image(w, h)
+		{
+		}
+		/*! コンストラクタ
+		 *  文字列から画像を生成する
+		 *  \param [in] ifs 入力ストリーム
+		 */
+		Stamp(boost::shared_ptr<std::istream> ifs):
+			Image(ifs)
+		{
+		}
+		~Stamp()
+		{
+		}
+
+	public:
+		/*! 番号を設定する
+		 *  \param [in] n 番号
+		 */
+		inline void setNumber(int n)
+		{
+			number = n;
+		}
+
+		/*! 番号を取得する
+		 *  \return 番号
+		 */
+		inline int getNumber() const
+		{
+			return (number);
+		}
+		long number;
+	};
 public:
 	Image image; /*!< 回答中の画像 */
 	std::mutex image_m; /*!< 画像を操作する際のミューテックス */
-	std::vector<Image> stamps; /*!< スタンプ */
+	std::vector<Stamp> stamps; /*!< スタンプ */
+	std::vector<Stamp> stamps_size; /*!< スタンプ */
 };
 
 /*!

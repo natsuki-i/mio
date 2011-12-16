@@ -29,8 +29,8 @@ void AlgorithmFillOne::Solve(Problem &problem, Answer &answer)
 	for(int y = 0;y < h;y++){
 		for(int x = 0;x < w;x++){
 			if(problem.image.get(x, y)){
-				problem.AffixStamp(x, y, problem.stamps[0].getNumber());
-				answer.Add(x, y, problem.stamps[0].getNumber());
+				problem.AffixStamp(x, y, problem.stamps_size[0].getNumber());
+				answer.Add(x, y, problem.stamps_size[0].getNumber());
 			}
 		}
 	}

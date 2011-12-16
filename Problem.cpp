@@ -19,10 +19,11 @@ Problem::Problem(boost::shared_ptr<std::istream> ifs)
 	(*ifs) >> n;
 	stamps.reserve(n);
 	for(int i = 0;i < n;i++){
-		stamps.push_back(Image(ifs));
+		stamps.push_back(Stamp(ifs));
 		stamps[i].setNumber(i);
 	}
-	std::sort(stamps.begin(), stamps.end());
+	stamps_size = stamps;
+	std::sort(stamps_size.begin(), stamps_size.end());
 
 	long w, h;
 	w = start.getWidth();
@@ -47,50 +48,103 @@ Problem::~Problem()
  */
 void Problem::AffixStamp(long x, long y, long n)
 {
-	long sx, sy, ox, oy, sw, sh;
-	std::lock_guard<std::mutex> lk(image_m);
 	if((unsigned long) n >= stamps.size()){
 		std::cerr << "警告: スタンプ番号が範囲外" << std::endl;
 		return;
 	}
-	/* 左,上はみ出しチェック */
-	if(x < 0){
-		sx = 0;
-		ox = x;
-	}else{
-		sx = x;
-		ox = 0;
-	}
-	if(y < 0){
-		sy = 0;
-		oy = y;
-	}else{
-		sy = y;
-		oy = 0;
-	}
 
-	/* 右,下はみ出しチェック*/
-	if(x + stamps[n].getWidth() >= image.getWidth()){
-		sw = image.getWidth() - x;
-	}else{
-		sw = stamps[n].getWidth();
-	}
-	if(y + stamps[n].getHeight() >= image.getHeight()){
-		sh = image.getHeight() - y;
-	}else{
-		sh = stamps[n].getHeight();
-	}
+	/* 適用する範囲を計算 */
+	long sx, sy, ox, oy, sw, sh;
+	sx = x;
+	sy = y;
+	sw = stamps[n].getWidth();
+	sh = stamps[n].getHeight();
+	CalcPosition(sx, sy, ox, oy, sw, sh);
+
+	std::lock_guard<std::mutex> lk(image_m);
 
 	for(long cy = 0;cy < sh;cy++){
 		for(long cx = 0;cx < sw;cx++){
-			image.set(
-					sx + cx,
-					sy + cy,
-					image.get(sx + cx, sy + cy)
-							^ stamps[n].get(ox + cx, oy + cy));
+			image.set(sx + cx, sy + cy, image.get(sx + cx, sy + cy) ^ stamps[n].get(ox + cx, oy + cy));
 		}
 	}
 
+}
+
+/*!
+ *  \param [in] x X座標
+ *  \param [in] y Y座標
+ *  \param [in] n スタンプ番号
+ */
+int Problem::CalcMatch(long x, long y, long n)
+{
+	if((unsigned long) n >= stamps.size()){
+		std::cerr << "警告: スタンプ番号が範囲外" << std::endl;
+		return 0;
+	}
+
+	/* 適用する範囲を計算 */
+	long sx, sy, ox, oy, sw, sh;
+	sx = x;
+	sy = y;
+	sw = stamps[n].getWidth();
+	sh = stamps[n].getHeight();
+	CalcPosition(sx, sy, ox, oy, sw, sh);
+
+	long count = 0;
+
+	for(long cy = 0;cy < sh;cy++){
+		for(long cx = 0;cx < sw;cx++){
+			if(image.get(sx + cx, sy + cy) == stamps[n].get(ox + cx, oy + cy)){
+				count++;
+			}
+		}
+	}
+	return (count*1000)/(sw*sh);
+}
+
+/*!
+ *  \param [in,out] startx X座標
+ *  \param [in,out] starty Y座標
+ *  \param [out] offsetx X座標
+ *  \param [out] offsety Y座標
+ *  \param [in,out] stampw スタンプの幅
+ *  \param [in,out] stamph スタンプの高さ
+ */
+void Problem::CalcPosition(long &startx, long &starty, long &offsetx, long &offsety, long &stampw, long &stamph)
+{
+	if(startx >= image.getWidth() || starty >= image.getHeight() || startx+stampw < 0 || starty+stamph < 0){
+		std::cerr << "警告: スタンプ位置が範囲外" << std::endl;
+		startx = 0;
+		starty = 0;
+		offsetx = 0;
+		offsety = 0;
+		stampw = 0;
+		stamph = 0;
+		return;
+	}
+	/* 左,上はみ出しチェック */
+	if(startx < 0){
+		offsetx = -startx;
+		stampw -= offsetx;
+		startx = 0;
+	}else{
+		offsetx = 0;
+	}
+	if(starty < 0){
+		offsety = -starty;
+		stamph -= offsety;
+		starty= 0;
+	}else{
+		offsety = 0;
+	}
+	/* 右,下はみ出しチェック*/
+	if(startx + offsetx + stampw >= image.getWidth()){
+		stampw = image.getWidth() - startx;
+	}
+	if(starty + offsety + stamph >= image.getHeight()){
+		stamph = image.getHeight() - starty;
+	}
 }
 
 Problem::Image::Image(boost::shared_ptr<std::istream> ifs)
