@@ -40,17 +40,25 @@ std::map<std::string, std::string> parse_options(std::vector<std::string> &args)
 						if(!boost::regex_match(*it, boost::regex("[0-9]+"))){
 							throw "arg";
 						}
-						ret.insert(make_pair("bruteforce", *it));
+						ret.insert(make_pair("bf-thread", *it));
+						if(++it == args.end()) throw "arg";
+						if(!boost::regex_match(*it, boost::regex("[0-9]+"))){
+							throw "arg";
+						}
+						ret.insert(make_pair("bf-threshold", *it));
+						ret.insert(make_pair("bruteforce", "true"));
+					}else{
+						ret.insert(make_pair(*it, "true"));
 					}
 					break;
 				default:
-					ret.insert(make_pair(*it, ""));
+					ret.insert(make_pair(*it, "true"));
 					break;
 				}
 			}
 		}
 	} catch(...){
-		cout << "Usage: mio -i input -o output" << endl;
+		cout << "Usage: mio [-i input] [-o output] [-bf thread threshold [-bf-rev] ]" << endl;
 		return (map<string, string>());
 	}
 	ret.insert(make_pair("stat", "ok"));

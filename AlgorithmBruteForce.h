@@ -32,6 +32,7 @@ private:
 		Problem &problem;
 		Answer &answer;
 		int sy, ey;
+		void core(const long &pw, const long &ph, const int threshold, const Problem::Stamp &stamp);
 		void operator()();
 	};
 public:
