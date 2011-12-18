@@ -9,7 +9,14 @@
 #include "Answer.h"
 #include "AlgorithmBase.h"
 
-AlgorithmBase::AlgorithmBase()
+/*!
+ * \param [in,out] problem 問題
+ * \param [in,out] answer 回答
+ * \param [in] sy 上端
+ * \param [in] ey 下端
+ */
+AlgorithmBase::AlgorithmBase(Problem &problem, Answer &answer, int sh, int eh)
+	: problem(problem), answer(answer), sh(sh), eh(eh)
 {
 }
 
@@ -18,10 +25,9 @@ AlgorithmBase::~AlgorithmBase()
 }
 
 /*!
- * \param [in, out] problem 問題
- * \param [out] answer 回答
  */
-void AlgorithmBase::Solve(Problem &problem, Answer &answer)
+void AlgorithmBase::operator()()
 {
 	// Do something.
 }
+

@@ -8,8 +8,8 @@
 #include "Problem.h"
 #include "Answer.h"
 #include "AlgorithmBase.h"
-#include "AlgorithmBruteForce.h"
 #include "AlgorithmFillOne.h"
+#include "AlgorithmBruteForce.h"
 
 std::map<std::string, std::string> options; /*!< コマンドラインオプション */
 
@@ -40,17 +40,18 @@ std::map<std::string, std::string> parse_options(std::vector<std::string> &args)
 						if(!boost::regex_match(*it, boost::regex("[0-9]+"))){
 							throw "arg";
 						}
-						ret.insert(make_pair("bf-thread", *it));
-						if(++it == args.end()) throw "arg";
-						if(!boost::regex_match(*it, boost::regex("[0-9]+"))){
-							throw "arg";
-						}
 						ret.insert(make_pair("bf-threshold", *it));
 						ret.insert(make_pair("bruteforce", "true"));
 					}else{
 						ret.insert(make_pair(*it, "true"));
 					}
 					break;
+				case 't':
+					if(++it == args.end()) throw "arg";
+					if(!boost::regex_match(*it, boost::regex("[0-9]+"))){
+						throw "arg";
+					}
+					ret.insert(make_pair("thread", *it));
 				default:
 					ret.insert(make_pair(*it, "true"));
 					break;
@@ -107,15 +108,8 @@ int main(int argc, const char *argv[])
 	Problem problem(ifs);
 	Answer answer;
 
-	vector<AlgorithmBase*> al;
-	if(options["bruteforce"] != ""){
-		al.push_back(new AlgorithmBruteForce);
-	}
-	al.push_back(new AlgorithmFillOne);
-
-	BOOST_FOREACH(auto a, al){
-		a->Solve(problem, answer);
-	}
+	if(options["bruteforce"] != "") Solve<AlgorithmBruteForce>(problem, answer);
+	Solve<AlgorithmFillOne>(problem, answer);
 
 	answer.Output(ofs);
 

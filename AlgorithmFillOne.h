@@ -16,9 +16,13 @@
 class AlgorithmFillOne: public AlgorithmBase
 {
 public:
-	AlgorithmFillOne(); /*!< コンストラクタ */
+	AlgorithmFillOne(Problem &problem, Answer &answer, int sh, int eh); /*!< コンストラクタ */
 	virtual ~AlgorithmFillOne(); /*!< デストラクタ */
-	virtual void Solve(Problem &problem, Answer &answer); /*!< アルゴリズム本体 */
+	virtual void operator()(); /*!< アルゴリズム本体 */
+	static std::string getName()
+	{
+		return "FillOne";
+	}
 };
 
 #endif /* ALGORITHMFILLONE_H_ */

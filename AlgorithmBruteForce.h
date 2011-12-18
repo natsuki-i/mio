@@ -15,30 +15,15 @@
 class AlgorithmBruteForce: public AlgorithmBase
 {
 private:
-	/*! ワーカースレッド
-	 * 
-	 */
-	struct worker{
-		/*! コンストラクタ
-		 * \param [in,out] problem
-		 * \param [in,out] answer
-		 * \param [in] sy 上端
-		 * \param [in] ey 下端
-		 */
-		worker(Problem &problem, Answer &answer, int sy, int ey):
-			problem(problem), answer(answer), sy(sy), ey(ey)
-		{
-		}
-		Problem &problem;
-		Answer &answer;
-		int sy, ey;
-		void core(const long &pw, const long &ph, const int threshold, const Problem::Stamp &stamp);
-		void operator()();
-	};
+	void core(const long &pw, const long &ph, const int threshold, const Problem::Stamp &stamp);
 public:
-	AlgorithmBruteForce(); /*!< コンストラクタ */
+	AlgorithmBruteForce(Problem &problem, Answer &answer, int sh, int eh); /*!< コンストラクタ */
 	virtual ~AlgorithmBruteForce(); /*!< デストラクタ */
-	virtual void Solve(Problem &problem, Answer &answer); /*!< アルゴリズム本体 */
+	virtual void operator()(); /*!< アルゴリズム本体 */
+	static std::string getName()
+	{
+		return "BruteForce";
+	}
 };
 
 #endif /* ALGORITHMBRUTEFORCE_H_ */

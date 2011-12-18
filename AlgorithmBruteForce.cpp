@@ -10,7 +10,14 @@
 #include "AlgorithmBase.h"
 #include "AlgorithmBruteForce.h"
 
-AlgorithmBruteForce::AlgorithmBruteForce()
+/*!
+ * \param [in,out] problem 問題
+ * \param [in,out] answer 回答
+ * \param [in] sy 上端
+ * \param [in] ey 下端
+ */
+AlgorithmBruteForce::AlgorithmBruteForce(Problem &problem, Answer &answer, int sh, int eh)
+	:AlgorithmBase(problem, answer, sh, eh)
 {
 }
 
@@ -18,26 +25,7 @@ AlgorithmBruteForce::~AlgorithmBruteForce()
 {
 }
 
-/*!
- * \param [in, out] problem 問題
- * \param [out] answer 回答
- */
-void AlgorithmBruteForce::Solve(Problem &problem, Answer &answer)
-{
-	long h = problem.image.getHeight();
-	std::cerr << "開始：BruteForce" << std::endl;
-	std::vector<std::thread> t;
-	int tn = atoi(options["bf-thread"].c_str());
-	for(int i = 0;i < tn;i++){
-		t.push_back(std::thread(worker(problem, answer, h/tn*i, h/tn*(i+1))));
-	}
-	for(int i = 0;i < tn;i++){
-		t[i].join();
-	}
-	std::cerr << "終了：BruteForce" << std::endl;
-}
-
-void AlgorithmBruteForce::worker::operator()()
+void AlgorithmBruteForce::operator()()
 {
 	long pw = problem.image.getWidth();
 	long ph = problem.image.getHeight();
@@ -61,7 +49,7 @@ void AlgorithmBruteForce::worker::operator()()
 	}
 }
 
-void AlgorithmBruteForce::worker::core(const long &pw, const long &ph, const int threshold, const Problem::Stamp &stamp)
+void AlgorithmBruteForce::core(const long &pw, const long &ph, const int threshold, const Problem::Stamp &stamp)
 {
 		long w = stamp.getWidth();
 		long h = stamp.getHeight();
@@ -69,7 +57,7 @@ void AlgorithmBruteForce::worker::core(const long &pw, const long &ph, const int
 		if(w*h == 1) return;
 		long th = 1000-((1000-threshold)* (1-((double)w*h)/((double)pw*ph)));
 		std::cerr << w << " " << h << " " << th << std::endl;
-		for(int  y = sy -h/2+1;y < ey - h/2;y++){
+		for(int  y = sh -h/2+1;y < eh - h/2;y++){
 			for(int x = -w/2+1;x < pw - w/2;x++){
 				if(problem.CalcMatch(x, y, n) >= th){
 					problem.AffixStamp(x, y, n);
