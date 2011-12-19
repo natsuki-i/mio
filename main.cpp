@@ -59,7 +59,7 @@ std::map<std::string, std::string> parse_options(std::vector<std::string> &args)
 			}
 		}
 	} catch(...){
-		cout << "Usage: mio [-i input] [-o output] [-bf thread threshold [-bf-rev] ]" << endl;
+		cout << "Usage: mio [-i input] [-o output] [-t thread] [-bf threshold [-bf-rev] ]" << endl;
 		return (map<string, string>());
 	}
 	ret.insert(make_pair("stat", "ok"));
