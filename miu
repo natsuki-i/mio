@@ -22,6 +22,6 @@ case $1 in
 	;;
 # 回答提出　パラメータは回答ファイル名
 	*)
-		wget -qO - --post-file=$1 http://$HostName:$HostPort/SubmitAnswer?PlayerID=$PlayerID&ProblemNumber=$ProblemNumber
+		wget -qO - --post-file=$1 http://$HostName:$HostPort/SubmitAnswer?PlayerID=$PlayerID\&ProblemNumber=$ProblemNumber
 	;;
 esac
