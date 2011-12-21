@@ -39,6 +39,9 @@ void AlgorithmFillOne::operator()()
 				answer.Add(x, y, problem.stamps_size[0].getNumber());
 			}
 		}
+		if(problem.getDiscord() < answer.getCount()){
+			return;
+		}
 	}
 }
 

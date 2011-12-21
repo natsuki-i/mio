@@ -51,19 +51,22 @@ void AlgorithmBruteForce::operator()()
 
 void AlgorithmBruteForce::core(const long &pw, const long &ph, const int threshold, const Problem::Stamp &stamp)
 {
-		long w = stamp.getWidth();
-		long h = stamp.getHeight();
-		long n = stamp.getNumber();
-		if(w*h == 1) return;
-		long th = 1000-((1000-threshold)* (1-((double)w*h)/((double)pw*ph)));
-		std::cerr << w << " " << h << " " << th << std::endl;
-		for(int  y = sh -h/2+1;y < eh - h/2;y++){
-			for(int x = -w/2+1;x < pw - w/2;x++){
-				if(problem.CalcMatch(x, y, n) >= th){
-					problem.AffixStamp(x, y, n);
-					answer.Add(x, y, n);
+	long w = stamp.getWidth();
+	long h = stamp.getHeight();
+	long n = stamp.getNumber();
+	if(w*h == 1) return;
+	long th = 1000-((1000-threshold)* (1-((double)w*h)/((double)pw*ph)));
+	std::cerr << w << " " << h << " " << th << std::endl;
+	for(int  y = sh -h/2+1;y < eh - h/2;y++){
+		for(int x = -w/2+1;x < pw - w/2;x++){
+			if(problem.CalcMatch(x, y, n) >= th){
+				problem.AffixStamp(x, y, n);
+				answer.Add(x, y, n);
+				if(problem.getDiscord() < answer.getCount()){
+					return;
 				}
 			}
 		}
+	}
 }
 

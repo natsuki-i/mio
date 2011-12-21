@@ -17,6 +17,10 @@ public:
 	~Answer(); /*!< デストラクタ */
 	void Add(long x, long y, long n);
 	void Output(boost::shared_ptr<std::ostream> ofs);
+	long getCount() const
+	{
+		return stamps.size();
+	}
 public:
 	/*! スタンプ情報 */
 	struct stamp

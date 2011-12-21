@@ -18,6 +18,10 @@ public:
 	~Problem(); /*!< デストラクタ */
 	void AffixStamp(long x, long y, long n); /*!< 指定した座標にスタンプを適用する */
 	int CalcMatch(long x, long y, long n) const; /*!< スタンプを押した場合の一致度を求める */
+	long getDiscord() const
+	{
+		return(discord);
+	}
 private:
 	void CalcPosition(long &startx, long &starty, long &offsetx, long &offsety, long &stampw, long &stamph) const; /*!< スタンプを押す範囲を計算する */
 public:
@@ -155,6 +159,7 @@ public:
 	std::mutex image_m; /*!< 画像を操作する際のミューテックス */
 	std::vector<Stamp> stamps; /*!< スタンプ */
 	std::vector<Stamp> stamps_size; /*!< スタンプ */
+	long discord; /*!< 不一致数  */
 };
 
 /*!
