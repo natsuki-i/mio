@@ -1,0 +1,27 @@
+#!/bin/sh
+HostName="192.168.100.1"
+HostPort=80
+PlayerID="308685860"
+ProblemNumber="0"
+
+case $1 in
+# PlayerID確認
+	"c")
+		wget -qO - http://$HostName:$HostPort/CheckParameters?PlayerID=$PlayerID
+	;;
+# 問題取得 ファイル名は p
+	"g")
+		wget -qO - http://$HostName:$HostPort/GetProblem?ProblemNumber=$ProblemNumber > p
+		head p -n 2
+	;;
+# FillOne最速投稿
+	1)
+		./miu g
+		./mio -i p -o a1 -t 2
+		./miu a1
+	;;
+# 回答提出　パラメータは回答ファイル名
+	*)
+		wget -qO - --post-file=$1 http://$HostName:$HostPort/SubmitAnswer?PlayerID=$PlayerID&ProblemNumber=$ProblemNumber
+	;;
+esac
