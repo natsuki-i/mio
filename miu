@@ -1,8 +1,5 @@
 #!/bin/sh
-HostName="192.168.1.2"
-HostPort=80
-PlayerID="308685860"
-ProblemNumber="0"
+source ./conf
 
 if [ $# -ne 1 ]; then
 	echo "./miu (c|g|1|filename)"
@@ -12,10 +9,12 @@ fi
 case $1 in
 # PlayerID確認
 	"c")
+		echo "wget -qO - http://$HostName:$HostPort/CheckParameters?PlayerID=$PlayerID"
 		wget -qO - http://$HostName:$HostPort/CheckParameters?PlayerID=$PlayerID
 	;;
 # 問題取得 ファイル名は p
 	"g")
+		echo "wget -qO - http://$HostName:$HostPort/GetProblem?ProblemNumber=$ProblemNumber > p "
 		wget -qO - http://$HostName:$HostPort/GetProblem?ProblemNumber=$ProblemNumber > p
 		head p -n 2
 	;;
@@ -32,6 +31,12 @@ case $1 in
 # 手数のソート
 	"s")
 		head a* -n 1 | sort -g
+	;;
+# 問題番号を1に設定
+	"p")
+		echo 'ProblemNumber="1"' >> conf
+		echo 'miu g'
+		./miu g
 	;;
 # 回答提出　パラメータは回答ファイル名
 	*)
