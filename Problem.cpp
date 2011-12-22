@@ -112,6 +112,7 @@ int Problem::CalcMatch(long x, long y, long n) const
 			}
 		}
 	}
+	if(all == 0) return 0;
 	return (count*1000)/(all);
 }
 
