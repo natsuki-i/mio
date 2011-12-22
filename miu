@@ -14,19 +14,19 @@ case $1 in
 	;;
 # 問題取得 ファイル名は p
 	"g")
-		echo "wget -qO - http://$HostName:$HostPort/GetProblem?ProblemNumber=$ProblemNumber > p "
-		wget -qO - http://$HostName:$HostPort/GetProblem?ProblemNumber=$ProblemNumber > p
-		head p -n 2
+		echo "wget -qO - http://$HostName:$HostPort/GetProblem?ProblemNumber=$ProblemNumber > p$ProblemNumber "
+		wget -qO - http://$HostName:$HostPort/GetProblem?ProblemNumber=$ProblemNumber > p$ProblemNumber
+		head p$ProblemNumber -n 2
 	;;
 # FillOne最速投稿
 	1)
 		./miu g
-		./mio -i p -o a1 -t 2
+		./mio -i p$ProblemNumber -o a$(ProblemNumber)1 -t 2
 		./miu a1
 	;;
 # 回答ファイル一覧
 	"l")
-		head a* -n 1
+		head a$ProblemNumber* -n 1
 	;;
 # 手数のソート
 	"s")
