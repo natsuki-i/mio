@@ -26,11 +26,11 @@ case $1 in
 	;;
 # 回答ファイル一覧
 	"l")
-		head a$ProblemNumber* -n 1
+		head a$ProblemNumber* -n 1 -v
 	;;
 # 手数のソート
 	"s")
-		head a$ProblemNumber* -n 1 | ./sort.rb | sort -gr
+		./miu l | ./sort.rb | sort -gr
 	;;
 # 最小手数のファイルをアップロードする
 	"u")
