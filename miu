@@ -21,8 +21,8 @@ case $1 in
 # FillOne最速投稿
 	1)
 		./miu g
-		./mio -i p$ProblemNumber -o a$(ProblemNumber)1 -t 2
-		./miu a$(ProblemNumber)1
+		./mio -i p$ProblemNumber -o a${ProblemNumber}1 -t 2
+		./miu a${ProblemNumber}1
 	;;
 # 回答ファイル一覧
 	"l")
