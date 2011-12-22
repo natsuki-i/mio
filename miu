@@ -1,5 +1,5 @@
 #!/bin/sh
-HostName="192.168.100.1"
+HostName="192.168.1.2"
 HostPort=80
 PlayerID="308685860"
 ProblemNumber="0"
@@ -24,6 +24,14 @@ case $1 in
 		./miu g
 		./mio -i p -o a1 -t 2
 		./miu a1
+	;;
+# 回答ファイル一覧
+	"l")
+		head a* -n 1
+	;;
+# 手数のソート
+	"s")
+		head a* -n 1 | sort -g
 	;;
 # 回答提出　パラメータは回答ファイル名
 	*)
