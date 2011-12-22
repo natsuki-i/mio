@@ -32,6 +32,10 @@ case $1 in
 	"s")
 		head a$ProblemNumber* -n 1 | ./sort.rb | sort -gr
 	;;
+# 最小手数のファイルをアップロードする
+	"u")
+		./miu `./miu s | tail -1 | sed -e"s/^[0-9]*\ //"`
+	;;
 # 問題番号を1に設定
 	"p")
 		echo 'ProblemNumber="1"' >> conf
@@ -41,6 +45,7 @@ case $1 in
 # 回答提出　パラメータは回答ファイル名
 	*)
 		if [ -e $1 ]; then
+			echo "wget -qO - --post-file=$1 http://$HostName:$HostPort/SubmitAnswer?PlayerID=$PlayerID\&ProblemNumber=$ProblemNumber"
 			wget -qO - --post-file=$1 http://$HostName:$HostPort/SubmitAnswer?PlayerID=$PlayerID\&ProblemNumber=$ProblemNumber
 		else
 			echo 'file not found'
