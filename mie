@@ -1,0 +1,2 @@
+#!/bin/bash
+time ./mio -t 2 -i p -o a$1$2 -bf $1 $2
