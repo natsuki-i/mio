@@ -18,6 +18,7 @@
 #include <list>
 #include <utility>
 #include <ctime>
+#include <csignal>
 #include <thread>
 #include <boost/foreach.hpp>
 #include <boost/shared_ptr.hpp>
@@ -25,5 +26,6 @@
 #include <boost/regex.hpp>
 
 extern std::map<std::string, std::string> options;
+extern bool stopped;
 
 #endif /* PREC_H_ */

@@ -66,6 +66,7 @@ void AlgorithmBruteForce::core(const long &pw, const long &ph, const int thresho
 					return;
 				}
 			}
+			if(stopped) return;
 		}
 	}
 }

@@ -12,6 +12,7 @@
 #include "AlgorithmBruteForce.h"
 
 std::map<std::string, std::string> options; /*!< コマンドラインオプション */
+bool stopped = false; /*! 停止フラグ */
 
 /*! オプションの解析
  *  \param [in] args 引数の配列
@@ -74,6 +75,11 @@ struct noop
 	}
 };
 
+void interrupt(int sig)
+{
+	stopped = true;
+}
+
 /*! エントリポイント
  * \param [in] argc 引数の数
  * \param [in] argv コマンド文字列の配列
@@ -82,6 +88,7 @@ int main(int argc, const char *argv[])
 {
 	using namespace std;
 	// オプション解析
+	signal(SIGINT, interrupt);
 	vector<string> args;
 	for(int i = 1;i < argc;i++){
 		args.push_back(argv[i]);
