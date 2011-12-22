@@ -166,7 +166,10 @@ Problem::Image::Image(boost::shared_ptr<std::istream> ifs)
 	(*ifs) >> w >> h;
 	width = w;
 	height = h;
-	image.resize(h, std::vector<bool>(w));
+	image.reset(new boost::shared_array<bool>[h]);
+	for(int y = 0;y < h;y++){
+		image[y] = boost::shared_array<bool>(new bool[w]);
+	}
 	for(int y = 0;y < h;y++){
 		std::string line;
 		(*ifs) >> line;

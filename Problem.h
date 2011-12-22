@@ -45,8 +45,11 @@ public:
 		 *  \param [in] h 高さ
 		 */
 		Image(long w, long h) :
-				width(w), height(h), number(0), image(h, std::vector<bool>(w, false))
+				width(w), height(h), number(0), image(new boost::shared_array<bool>[h])
 		{
+			for(int y = 0;y < h;y++){
+				image[y] = boost::shared_array<bool>(new bool[w]);
+			}
 		}
 		/*! コンストラクタ
 		 *  文字列から画像を生成する
@@ -101,7 +104,7 @@ public:
 		long width;
 		long height;
 		long number;
-		std::vector<std::vector<bool> > image;
+		boost::shared_array<boost::shared_array<bool> > image;
 		friend class Problem;
 	};
 	class Stamp : public Image
