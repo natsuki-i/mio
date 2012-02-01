@@ -1,0 +1,54 @@
+#!/bin/bash
+source ./conf
+
+if [ $# -ne 1 ]; then
+	echo "./miu (c|g|1|filename)"
+	exit 1;
+fi
+
+case $1 in
+# PlayerID確認
+	"c")
+		echo "wget -qO - http://$HostName:$HostPort/CheckParameters?PlayerID=$PlayerID"
+		wget -qO - http://$HostName:$HostPort/CheckParameters?PlayerID=$PlayerID
+	;;
+# 問題取得 ファイル名は p
+	"g")
+		echo "wget -qO - http://$HostName:$HostPort/GetProblem?ProblemNumber=$ProblemNumber > p$ProblemNumber "
+		wget -qO - http://$HostName:$HostPort/GetProblem?ProblemNumber=$ProblemNumber > p$ProblemNumber
+		head p$ProblemNumber -n 2
+	;;
+# FillOne最速投稿
+	1)
+		./miu g
+		./mio -i p$ProblemNumber -o a${ProblemNumber}1 -t 2
+		./miu a${ProblemNumber}1
+	;;
+# 回答ファイル一覧
+	"l")
+		head a$ProblemNumber* -n 1 -v
+	;;
+# 手数のソート
+	"s")
+		./miu l | ./sort.rb | sort -gr
+	;;
+# 最小手数のファイルをアップロードする
+	"u")
+		./miu `./miu s | tail -1 | sed -e"s/^[0-9]*\ //"`
+	;;
+# 問題番号を1に設定
+	"p")
+		echo 'ProblemNumber="1"' >> conf
+		echo 'miu g'
+		./miu g
+	;;
+# 回答提出　パラメータは回答ファイル名
+	*)
+		if [ -e $1 ]; then
+			echo "wget -qO - --post-file=$1 http://$HostName:$HostPort/SubmitAnswer?PlayerID=$PlayerID\&ProblemNumber=$ProblemNumber"
+			wget -qO - --post-file=$1 http://$HostName:$HostPort/SubmitAnswer?PlayerID=$PlayerID\&ProblemNumber=$ProblemNumber
+		else
+			echo 'file not found'
+		fi
+	;;
+esac

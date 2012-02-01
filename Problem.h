@@ -18,6 +18,10 @@ public:
 	~Problem(); /*!< デストラクタ */
 	void AffixStamp(long x, long y, long n); /*!< 指定した座標にスタンプを適用する */
 	int CalcMatch(long x, long y, long n) const; /*!< スタンプを押した場合の一致度を求める */
+	long getDiscord() const
+	{
+		return(discord);
+	}
 private:
 	void CalcPosition(long &startx, long &starty, long &offsetx, long &offsety, long &stampw, long &stamph) const; /*!< スタンプを押す範囲を計算する */
 public:
@@ -41,8 +45,11 @@ public:
 		 *  \param [in] h 高さ
 		 */
 		Image(long w, long h) :
-				width(w), height(h), number(0), image(h, std::vector<bool>(w, false))
+				width(w), height(h), number(0), image(new boost::shared_array<bool>[h])
 		{
+			for(int y = 0;y < h;y++){
+				image[y] = boost::shared_array<bool>(new bool[w]);
+			}
 		}
 		/*! コンストラクタ
 		 *  文字列から画像を生成する
@@ -97,7 +104,7 @@ public:
 		long width;
 		long height;
 		long number;
-		std::vector<std::vector<bool> > image;
+		boost::shared_array<boost::shared_array<bool> > image;
 		friend class Problem;
 	};
 	class Stamp : public Image
@@ -155,6 +162,7 @@ public:
 	std::mutex image_m; /*!< 画像を操作する際のミューテックス */
 	std::vector<Stamp> stamps; /*!< スタンプ */
 	std::vector<Stamp> stamps_size; /*!< スタンプ */
+	long discord; /*!< 不一致数  */
 };
 
 /*!

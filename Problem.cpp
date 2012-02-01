@@ -25,16 +25,21 @@ Problem::Problem(boost::shared_ptr<std::istream> ifs)
 	stamps_size = stamps;
 	std::sort(stamps_size.begin(), stamps_size.end());
 
-	long w, h;
+	long w, h, cnt = 0;
 	w = start.getWidth();
 	h = start.getHeight();
 	image = Image(w, h);
 	for(int y = 0;y < h;y++){
 		for(int x = 0;x < w;x++){
+			if(start.get(x, y) != end.get(x, y)){
+				image.set(x, y, 1);
+				cnt++;
+			}
 			image.set(x, y, start.get(x, y) ^ end.get(x, y));
-//			image.image[y][x] = start.image[y][x]^end.image[y][x];
 		}
 	}
+	std::cerr << "不一致数：" << cnt << std::endl;
+	discord = cnt;
 }
 
 Problem::~Problem()
@@ -91,20 +96,24 @@ int Problem::CalcMatch(long x, long y, long n) const
 	sh = stamps[n].getHeight();
 	CalcPosition(sx, sy, ox, oy, sw, sh);
 
-	long count = 0;
 	if(sw*sh == 0){
 		std::cerr << "警告: スタンプ位置が範囲外" << std::endl;
 		return 0;
 	}
 
+	long count = 0, all = 0;
 	for(long cy = 0;cy < sh;cy++){
 		for(long cx = 0;cx < sw;cx++){
-			if(image.get(sx + cx, sy + cy) == stamps[n].get(ox + cx, oy + cy)){
-				count++;
+			if(stamps[n].get(ox + cx, oy+ cy)){
+				all++;
+				if(image.get(sx + cx, sy + cy) == stamps[n].get(ox + cx, oy + cy)){
+					count++;
+				}
 			}
 		}
 	}
-	return (count*1000)/(sw*sh);
+	if(all == 0) return 0;
+	return (count*1000)/(all);
 }
 
 /*!
@@ -157,7 +166,10 @@ Problem::Image::Image(boost::shared_ptr<std::istream> ifs)
 	(*ifs) >> w >> h;
 	width = w;
 	height = h;
-	image.resize(h, std::vector<bool>(w));
+	image.reset(new boost::shared_array<bool>[h]);
+	for(int y = 0;y < h;y++){
+		image[y] = boost::shared_array<bool>(new bool[w]);
+	}
 	for(int y = 0;y < h;y++){
 		std::string line;
 		(*ifs) >> line;
