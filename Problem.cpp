@@ -181,5 +181,8 @@ std::ostream& operator<<(std::ostream& os, const Problem::Image &image)
 
 bool operator<(const Problem::Image &a, const Problem::Image &b)
 {
+	if(a.getWidth()*a.getHeight() == b.getWidth()*b.getHeight()){
+		return (a.get(0,0) > b.get(0,0));
+	}
 	return (a.getWidth()*a.getHeight() < b.getWidth()*b.getHeight());
 }
